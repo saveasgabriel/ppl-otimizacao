@@ -24,5 +24,5 @@ prod_df = render_table_editor(df, config)
 # Ao clicar em resolver
 if st.button("Resolver"):
     model = build_model(prod_df, config)
-    result, sol_series, usage_df = solve_model(model, config['solver'])
-    display_results(result, sol_series, usage_df, config['obj_name'])
+    result, sol_series, usage_df, obj_val = solve_model(model, config['solver'], prod_df, config)
+    display_results(result, sol_series, usage_df, config['obj_name'], obj_val)
