@@ -14,8 +14,8 @@ def solve_model(model, solver_name, df, config):
     obj_val = value(model.obj)
     usage = {}
     for r in config['resource_names']:
-        uso_r = df.set_index('Produto')[r]
-        usage[r] = sum(uso_r[p] * sol[p] for p in model.P)
+        uso_r = df.set_index('Produto')[r].to_dict()
+        usage[r] = sum(uso_r[p] * model.x[p]() for p in model.P)
 
     usage_df = pd.DataFrame(usage, index=['Uso']).T
     return result, sol_series, usage_df, obj_val

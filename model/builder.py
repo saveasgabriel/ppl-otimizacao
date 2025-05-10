@@ -9,8 +9,11 @@ def build_model(df, config):
 
     # domínios inteiros e limites
     for p in produtos:
-        if df.loc[p, 'Tipo'] == 'Inteira':
+        tipo = str(df.loc[p, 'Tipo']).strip().lower()
+        if tipo == 'inteira':
             model.x[p].domain = NonNegativeIntegers
+        else:
+            model.x[p].domain = NonNegativeReals
         model.x[p].setlb(df.loc[p, 'Min'])
         model.x[p].setub(df.loc[p, 'Max'])
 
